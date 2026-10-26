@@ -1,3 +1,3 @@
-Date : 26-10-2026 :  Sharad Poornima
+Date : 26-10-2026 :  Sharad Poornima .
 Today I finally added the header file LEd strip and LEd's are working on Espressif. 
 Now I have to understand task, priority and check how can I make one task turn on with switch. 
