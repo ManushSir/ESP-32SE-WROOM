@@ -1,0 +1,12 @@
+If you want the entire loop of blinking_task to finish completely before gpio_pulse_task begins, a Mutex is actually the wrong tool 
+for the job.
+A Mutex is designed for resource locking where tasks alternate access. 
+For a strict sequential execution order (Task A runs entirely → Task B runs entirely), 
+you should use a Binary Semaphore or Direct Task Notifications.
+Here is the best approach using a Binary Semaphore acting as a synchronization signal.
+How It Works:
+1. app_main creates a binary semaphore in a taken (empty) state.
+2. gpio_pulse_task starts and immediately blocks at xSemaphoreTake, waiting for the signal.
+3. blinking_task runs through its entire 6-cycle loop unbothered.
+4. When blinking_task finishes its loop, it signals xSemaphoreGive.
+5. gpio_pulse_task instantly wakes up and executes its entire loop.
