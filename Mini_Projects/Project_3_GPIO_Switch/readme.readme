@@ -1,2 +1,4 @@
 28/10/26
 In this  project we will learn to manupulate GOIP switches to perform task.  
+This code implements a FreeRTOS application that controls an LED strip and a GPIO output based on switch input. 
+It includes tasks for blinking the LED in different colors and pulsing a GPIO output while monitoring a switch state.
