@@ -6,7 +6,7 @@ Standard header file that requires to be included :
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include <inttypes.h>
-#include "led_strip/led_strip.h"
+#include "led_strip/led_strip.h" // Need to make special CMake//
 #include "driver/gpio.h" 
 #include "hal/gpio_types.h"
 #include "sdkconfig.h"
