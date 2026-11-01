@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
+#include <stdio.h> 
 #include <inttypes.h>
+#include "freertos/FreeRTOS.h"
 #include "led_strip.h"
 #include "driver/gpio.h" 
 #include "hal/gpio_types.h"
@@ -84,6 +84,7 @@ int j = 0;
 	            // Short yield delay to let the scheduler switch tasks smoothly
 	            vTaskDelay(pdMS_TO_TICKS(1000)); 
 }
+}
 
   void Monitor_Switch(void *pvParameters){
 	gpio_reset_pin(GPIO_INPUT);
@@ -102,11 +103,11 @@ int j = 0;
     	 xSemaphoreGive(xBlinkSemaphore);
 	   }
 	           a = level;	  
-}
+                   }
 // Delay 100ms to yield CPU time to other FreeRTOS tasks
 	       vTaskDelay(pdMS_TO_TICKS(100));
 		   }
-}
+		   }
 void app_main(void)
 {
   printf("\nHello Reader : Manush Here !\nIn this Programme we will select switch to switch over the tasks!\n ");
