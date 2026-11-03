@@ -136,3 +136,4 @@ void app_main(void)
  /* Start with blinking task active */
     vTaskSuspend(pulseHandle);
 }
+/*2 November 2026 The limitation of this project is GPIO switches are not functioning as expected.  */
