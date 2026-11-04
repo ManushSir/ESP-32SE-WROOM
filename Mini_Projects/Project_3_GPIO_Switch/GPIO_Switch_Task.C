@@ -22,7 +22,7 @@ Suspend blinking_task*/
 #include "esp_chip_info.h"
 #include "esp_system.h"
 
-# define GPIO_INPUT GPIO_NUM_12
+# define GPIO_INPUT GPIO_NUM_14
 # define GPIO_OUTPUT GPIO_NUM_1
 # define LED 48
 TaskHandle_t blinkHandle = NULL;
@@ -91,8 +91,6 @@ int j = 0;
      j++;
      printf("\n GPIO Loop done : %d\n",j);
 	} 
-// Short yield delay to let the scheduler switch tasks smoothly
-	            vTaskDelay(pdMS_TO_TICKS(1000));
 }
 
   void Monitor_Switch(void *pvParameters){
@@ -101,6 +99,7 @@ int j = 0;
 	gpio_set_pull_mode(GPIO_INPUT, GPIO_PULLUP_ONLY);
 	int a = -1;
 	while(1){
+     vTaskDelay(pdMS_TO_TICKS(50));
 	int level = gpio_get_level(GPIO_INPUT);
 	if (level !=a) 
 {   
@@ -130,10 +129,27 @@ int j = 0;
 void app_main(void)
 {
   printf("\nHello Reader : Manush Here !\nIn this Programme we will select switch to switch over the tasks!\n ");
-	xTaskCreate(&Monitor_Switch, "Monitor_Switch", 3072, NULL , 5, NULL);
-  xTaskCreate(&gpio_pulse_task, "gpio_pulse_task", 3072, NULL , 3, NULL);
-	xTaskCreate(&blinking_task, "blinking_task", 3072, NULL , 4, NULL);
- /* Start with blinking task active */
-    vTaskSuspend(pulseHandle);
+  xTaskCreate(&gpio_pulse_task,
+              "gpio_pulse_task",
+              3072,
+              NULL,
+              3,
+              &pulseHandle);
+
+  xTaskCreate(&blinking_task,
+              "blinking_task",
+              3072,
+              NULL,
+              4,
+              &blinkHandle);
+
+  /* Suspend pulse task immediately */
+  vTaskSuspend(pulseHandle);
+
+  xTaskCreate(&Monitor_Switch,
+              "Monitor_Switch",
+              3072,
+              NULL,
+              5,
+              NULL);
 }
-/*2 November 2026 The limitation of this project is GPIO switches are not functioning as expected.  */
