@@ -1,3 +1,4 @@
+/*This program  creates PWM pin on pin 36. Configures it as GPIO pin*/
 #include <stdio.h>
 #include <FreeRTOSConfig.h>
 #include "driver/ledc.h"
